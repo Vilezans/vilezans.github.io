@@ -1,672 +1,333 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Addons Minecraft</title>
-    <style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vilezans · Portfólio de desenvolvimento técnico</title>
+<meta name="description" content="Portfólio de Vilezans: projetos de desenvolvimento técnico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1F3F9; --surface:#FFFFFF; --ink:#1B2140; --muted:#5A6283;
+  --line:#D3D8E8; --accent:#3340C4; --accent-ink:#FFFFFF; --hi:#F2A93B;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#12152A; --surface:#1A1E3A; --ink:#E8EBF7; --muted:#9AA3C7;
+    --line:#2A3052; --accent:#8E9BFF; --accent-ink:#12152A; --hi:#F2B456;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:400 17px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif; margin:0; letter-spacing:-0.015em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent); outline-offset:3px; border-radius:4px}
+.wrap{max-width:1040px; margin:0 auto; padding:0 24px}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+/* Cabeçalho */
+header .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:22px; padding-bottom:22px}
+.brand{font:700 1.15rem "Bricolage Grotesque",sans-serif; text-decoration:none}
+nav{display:flex; gap:22px}
+nav a{text-decoration:none; color:var(--muted); font-weight:500}
+nav a:hover{color:var(--ink)}
 
-        body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            display: flex;
-            min-height: 100vh;
-        }
+/* Hero */
+.hero{display:grid; grid-template-columns:1.25fr .75fr; gap:48px; align-items:center; padding:56px 0 88px}
+.hero h1{font-size:clamp(2.5rem,6.2vw,4.7rem); line-height:1.02; font-weight:700}
+.hero p{max-width:34em; color:var(--muted); font-size:1.15rem; margin:24px 0 32px}
+.actions{display:flex; gap:12px; flex-wrap:wrap}
+.btn{display:inline-block; padding:12px 22px; border-radius:10px; font-weight:500; text-decoration:none; border:1.5px solid var(--ink); background:transparent; color:var(--ink); font-family:inherit; font-size:1rem; cursor:pointer}
+.btn.solid{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
+.btn:hover{transform:translateY(-1px)}
 
-     
-        .sidebar {
-            width: 220px;
-            background-color: #111111;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-right: 2px solid #2a2a2a;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            z-index: 10;
-        }
+#mosaic{display:grid; grid-template-columns:repeat(10,1fr); grid-template-rows:repeat(8,1fr); gap:4px; aspect-ratio:10/8; width:100%}
+#mosaic i{border-radius:3px; background:transparent; transition:background .35s ease}
+#mosaic i.top{background:var(--accent)}
+#mosaic i.mid{background:var(--hi)}
+#mosaic i.deep{background:var(--line)}
 
-        .sidebar .logo-side img {
-            max-width: 120px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 12px;
-        }
+/* Seções */
+section{padding:72px 0; border-top:1px solid var(--line)}
+section > .wrap > h2{font-size:clamp(1.8rem,3.6vw,2.4rem); margin-bottom:12px}
+.intro{color:var(--muted); max-width:36em; margin:0 0 36px}
 
-        .sidebar nav {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+.featured{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:36px; display:grid; grid-template-columns:1.4fr 1fr; gap:32px}
+.featured h3{font-size:1.7rem; margin-bottom:12px}
+.featured p{margin:0 0 20px; color:var(--muted); max-width:36em}
+.featured .side{border-left:1px solid var(--line); padding-left:32px; align-self:stretch; display:flex; flex-direction:column; justify-content:space-between; gap:16px}
+.featured .side p{margin:0}
 
-        .sidebar nav a {
-            color: #aaaaaa;
-            text-decoration: none;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            transition: 0.3s;
-            cursor: pointer;
-            text-align: center;
-        }
+.tags{display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none}
+.tags li{font-size:.85rem; padding:3px 12px; border:1px solid var(--line); border-radius:999px; color:var(--muted)}
 
-        .sidebar nav a:hover {
-            background-color: #2a2a2a;
-            color: #ffffff;
-        }
+.rows{margin-top:12px}
+.row{display:grid; grid-template-columns:1fr 1.6fr; gap:8px 32px; padding:26px 0; border-bottom:1px solid var(--line)}
+.row h3{font-size:1.25rem}
+.row p{margin:0 0 12px; color:var(--muted)}
+.row a.more{font-weight:500; color:var(--accent); text-decoration:none}
+.row a.more:hover{text-decoration:underline}
 
-        .sidebar nav a.ativo {
-            background-color: #3b82f6;
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-        }
+/* Galeria */
+#grade{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:20px}
+#grade figure{margin:0}
+.tile{display:block; width:100%; padding:0; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); aspect-ratio:4/3; cursor:zoom-in; color:inherit}
+.tile:disabled{cursor:default}
+.tile img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease}
+.tile:not(:disabled):hover img{transform:scale(1.04)}
+.ph{width:100%; height:100%; display:grid; place-items:center; color:var(--muted); font-size:.95rem; background:repeating-linear-gradient(135deg,transparent 0 14px,var(--line) 14px 15px)}
+#grade figcaption{margin-top:10px; font-size:.95rem; color:var(--muted)}
+#grade figcaption strong{display:block; color:var(--ink); font-weight:500}
 
+dialog#lb{border:0; padding:0; background:transparent; max-width:min(94vw,1100px); max-height:94vh; overflow:visible; color:#fff}
+dialog#lb::backdrop{background:rgba(10,12,28,.86)}
+#lb img{display:block; max-width:100%; max-height:78vh; margin:0 auto; border-radius:10px}
+#lb .bar{display:flex; justify-content:space-between; align-items:center; gap:16px; margin-top:14px}
+#lb .bar p{margin:0; font-size:.98rem}
+#lb .ctrl{display:flex; gap:8px; flex:none}
+#lb .ctrl button{font:inherit; color:#fff; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35); border-radius:8px; padding:8px 14px; cursor:pointer}
+#lb .ctrl button:hover{background:rgba(255,255,255,.26)}
+#lb :focus-visible{outline-color:#fff}
 
-        .lang-toggle {
-            margin-top: 10px;
-            display: flex;
-            gap: 10px;
-        }
+.about{display:grid; grid-template-columns:1fr 1fr; gap:48px}
+.about p{margin:0 0 16px; max-width:34em}
+dl{margin:0}
+dt{font:600 1.05rem "Bricolage Grotesque",sans-serif; margin-top:18px}
+dt:first-child{margin-top:0}
+dd{margin:2px 0 0; color:var(--muted)}
 
-        .lang-toggle button {
-            background: #2a2a2a;
-            border: 2px solid #444;
-            color: #aaa;
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.contact h2{font-size:clamp(2.2rem,5vw,3.6rem)}
+.contact p{color:var(--muted); max-width:30em; margin:0 0 28px}
+.links{display:flex; gap:12px; flex-wrap:wrap}
 
-        .lang-toggle button.ativo-idioma {
-            background: #3b82f6;
-            border-color: #3b82f6;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-        }
+footer{padding:32px 0 48px; color:var(--muted); font-size:.9rem; border-top:1px solid var(--line)}
 
-        .lang-toggle button:hover {
-            background: #444;
-            color: #fff;
-        }
-
-
-        .main-content {
-            margin-left: 220px;
-            padding: 30px 40px 20px 40px;
-            width: calc(100% - 220px);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-
-        .page {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .page.ativa {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-
-        #home .logo-principal {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #home .logo-principal img {
-            max-width: 180px;
-            height: auto;
-        }
-
-        .search-area {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0 30px 0;
-        }
-
-        .search-area input {
-            width: 100%;
-            max-width: 500px;
-            padding: 14px 24px;
-            border-radius: 50px;
-            border: 2px solid #333;
-            background-color: #222;
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .search-area input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
-        }
-
-        .search-area input::placeholder {
-            color: #777;
-        }
-
-        /* Grade de Banners */
-        .banner-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 10px;
-        }
-
-        .banner-item {
-            background-color: #222;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #2a2a2a;
-        }
-
-        .banner-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
-            border-color: #3b82f6;
-        }
-
-        .banner-item img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .banner-item .info {
-            padding: 16px 18px 18px 18px;
-        }
-
-        .banner-item .info h3 {
-            font-size: 18px;
-            margin-bottom: 6px;
-            color: #fff;
-        }
-
-        .banner-item .info p {
-            font-size: 14px;
-            color: #aaa;
-            line-height: 1.5;
-        }
-
-
-        #projetos .header-projetos {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        #projetos .header-projetos h1 {
-            font-size: 36px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-
-        #projetos .header-projetos p {
-            color: #888;
-            font-size: 18px;
-            margin-top: 5px;
-        }
-
-        .projetos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card-projeto {
-            background-color: #1e1e1e;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid #2a2a2a;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .card-projeto:hover {
-            transform: scale(1.02);
-            border-color: #3b82f6;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Selo "Parceiro" / "Verificado" (estilo Minecraft) */
-        .card-projeto .badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #3b82f6;
-            color: #fff;
-            font-weight: 700;
-            font-size: 12px;
-            padding: 6px 14px;
-            border-radius: 30px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
-            border: 1px solid #6ba3ff;
-        }
-
-        .card-projeto img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-projeto .conteudo {
-            padding: 20px 22px 25px 22px;
-        }
-
-        .card-projeto .conteudo h3 {
-            font-size: 22px;
-            margin-bottom: 5px;
-            color: #fff;
-        }
-
-        .card-projeto .conteudo .subtitulo {
-            color: #3b82f6;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .card-projeto .conteudo p {
-            color: #aaa;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-    
-        .footer {
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 1px solid #2a2a2a;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            color: #888;
-            font-size: 14px;
-        }
-
-        .footer .contatos {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer .contatos a {
-            color: #aaa;
-            text-decoration: none;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .footer .contatos a:hover {
-            color: #fff;
-        }
-
-        .footer .discord-link {
-            background: #5865F2;
-            color: #fff !important;
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .footer .discord-link:hover {
-            background: #4752c4;
-            transform: scale(1.05);
-        }
-
-    
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 15px;
-                border-right: none;
-                border-bottom: 2px solid #2a2a2a;
-            }
-
-            .sidebar .logo-side img {
-                max-width: 70px;
-                margin-bottom: 0;
-                margin-right: 20px;
-            }
-
-            .sidebar nav {
-                flex-direction: row;
-                width: auto;
-                gap: 5px;
-            }
-
-            .sidebar nav a {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
-
-            .lang-toggle {
-                margin-top: 0;
-                margin-left: 10px;
-            }
-
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-                padding: 20px;
-            }
-
-            .banner-grid,
-            .projetos-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .banner-grid,
-            .projetos-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+@media (max-width:760px){
+  .hero,.featured,.about,.row{grid-template-columns:1fr}
+  .hero{padding-top:24px; gap:32px}
+  .featured{padding:24px}
+  .featured .side{border-left:0; border-top:1px solid var(--line); padding:20px 0 0}
+  nav{gap:14px}
+  #lb .bar{flex-direction:column; align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  #mosaic i,.btn,.tile img{transition:none}
+}
+</style>
 </head>
 <body>
 
+<header>
+  <div class="wrap">
+    <a class="brand" href="#topo">Vilezans</a>
+    <nav aria-label="Principal">
+      <a href="#projetos">Projetos</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
 
-    <aside class="sidebar">
-        <div class="logo-side">
+<main id="topo">
+  <div class="wrap hero">
+    <div>
+      <!-- EDITE: título e frase de apresentação -->
+      <h1>Desenvolvimento técnico, do código ao resultado.</h1>
+      <p>Sou o Vilezans. Aqui estão os projetos em que trabalhei e as formas de entrar em contato comigo.</p>
+      <div class="actions">
+        <a class="btn solid" href="#projetos">Ver projetos</a>
+        <a class="btn" href="#contato">Falar comigo</a>
+      </div>
+    </div>
+    <div id="mosaic" role="img" aria-label="Ilustração decorativa de blocos empilhados"></div>
+  </div>
 
-            <img src="logo.png" alt="Logo">
+  <section id="projetos">
+    <div class="wrap">
+      <h2>Projetos</h2>
+      <p class="intro">Trabalhos que desenvolvi para clientes, empresas ou instituições.</p>
+
+      <!-- EDITE: troque os textos de exemplo pelos seus projetos reais e coloque os links no lugar de href="#" -->
+      <article class="featured">
+        <div>
+          <h3>Nome do projeto em destaque</h3>
+          <p>Descreva em duas ou três frases o problema, o que você fez e o resultado.</p>
+          <ul class="tags"><li>Tecnologia 1</li><li>Tecnologia 2</li><li>Tecnologia 3</li></ul>
         </div>
-        <nav>
-            <a class="ativo" data-page="home" data-i18n="nav_home">🏠 Inicio</a>
-            <a data-page="projetos" data-i18n="nav_projetos">📁 Projetos</a>
-        </nav>
-
-        <div class="lang-toggle">
-            <button id="langPt" class="ativo-idioma">🇧🇷 PT</button>
-            <button id="langEn">🇺🇸 EN</button>
+        <div class="side">
+          <p>Seu papel no projeto, o período ou o cliente.</p>
+          <a class="btn solid" href="#">Ver projeto</a>
         </div>
-    </aside>
+      </article>
 
-  
-    <main class="main-content">
+      <!-- Para adicionar mais projetos, copie o bloco <article class="row"> abaixo -->
+      <div class="rows">
+        <article class="row">
+          <h3>Nome de outro projeto</h3>
+          <div>
+            <p>Uma frase sobre o que o projeto faz e qual foi sua contribuição.</p>
+            <a class="more" href="#">Ver projeto</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  
-        <section id="home" class="page ativa">
-            <div class="logo-principal">
-                <img src="logo.png" alt="Logo">
-            </div>
+  <section id="galeria">
+    <div class="wrap">
+      <h2>Galeria</h2>
+      <p class="intro">Imagens e capturas de tela dos projetos. Clique em uma imagem para ampliar.</p>
+      <div id="grade"></div>
+    </div>
+  </section>
 
-            <div class="search-area">
-                <input type="text" id="searchInput" data-i18n-placeholder="search_placeholder" placeholder="🔍 Pesquisar addons...">
-            </div>
+  <section id="sobre">
+    <div class="wrap about">
+      <div>
+        <h2>Sobre</h2>
+        <!-- EDITE: conte sua história, formação e o que você busca -->
+        <p>Escreva aqui um parágrafo curto sobre você: sua trajetória, a área em que atua e o tipo de trabalho que procura.</p>
+        <p>Um segundo parágrafo pode falar do seu jeito de trabalhar ou do que você gosta de construir.</p>
+      </div>
+      <dl>
+        <!-- EDITE: suas habilidades principais -->
+        <dt>Habilidade ou área 1</dt>
+        <dd>O que você faz com ela.</dd>
+        <dt>Habilidade ou área 2</dt>
+        <dd>O que você faz com ela.</dd>
+        <dt>Habilidade ou área 3</dt>
+        <dd>O que você faz com ela.</dd>
+      </dl>
+    </div>
+  </section>
 
+  <section id="contato" class="contact">
+    <div class="wrap">
+      <h2>Vamos conversar.</h2>
+      <p>Tem um projeto ou uma oportunidade em mente? Me escreva.</p>
+      <div class="links">
+        <!-- EDITE: coloque seu e-mail real -->
+        <a class="btn solid" href="mailto:seu@email.com">seu@email.com</a>
+        <a class="btn" href="https://github.com/Vilezans">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
 
-            <div id="bannerContainer" class="banner-grid">
-         
-            </div>
-        </section>
+<dialog id="lb" aria-label="Imagem ampliada">
+  <img id="lb-img" alt="">
+  <div class="bar">
+    <p id="lb-cap"></p>
+    <div class="ctrl">
+      <button type="button" id="lb-prev" aria-label="Imagem anterior">Anterior</button>
+      <button type="button" id="lb-next" aria-label="Próxima imagem">Próxima</button>
+      <button type="button" id="lb-close">Fechar</button>
+    </div>
+  </div>
+</dialog>
 
+<footer>
+  <div class="wrap">© <span id="ano">2026</span> Vilezans</div>
+</footer>
 
-        <section id="projetos" class="page">
-            <div class="header-projetos">
-                <h1 data-i18n="projects_title">✨ Meus Addons</h1>
-                <p data-i18n="projects_subtitle">Addons exclusivos para Minecraft Bedrock</p>
-            </div>
+<script>
+/* ====== GALERIA ======
+   1. Crie uma pasta chamada "imagens" no repositório e envie suas imagens para ela.
+   2. Para cada imagem, adicione uma linha abaixo, com o caminho em "src".
+   Itens com src vazio ('') aparecem como espaço reservado. */
+var GALERIA = [
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' }
+];
+/* Exemplo preenchido:
+  { src: 'imagens/painel.png', alt: 'Tela inicial do painel', projeto: 'Painel de vendas', legenda: 'Tela inicial' }
+*/
 
-            <div id="projetosContainer" class="projetos-grid">
-             
-            </div>
-        </section>
+(function(){
+  document.getElementById('ano').textContent = new Date().getFullYear();
 
-  
-        <footer class="footer">
-            <div class="contatos">
-                <span>📧 <a href="mailto:seuemail@email.com" data-i18n="footer_email">seuemail@email.com</a></span>
-                <span>📱 <a href="#" data-i18n="footer_phone">(11) 99999-9999</a></span>
-                <span>🐦 <a href="#" data-i18n="footer_social">@seudiscord</a></span>
-            </div>
-            <div>
-                <a href="#" class="discord-link" data-i18n="footer_discord">💬 Entre no meu Discord</a>
-            </div>
-        </footer>
+  /* Galeria */
+  var grade = document.getElementById('grade');
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img'), lbCap = document.getElementById('lb-cap');
+  var itens = GALERIA.filter(function(g){ return g.src; });
+  var atual = 0;
 
-    </main>
+  function legendaDe(g){ return [g.projeto, g.legenda].filter(Boolean).join(': '); }
+  function mostrar(){
+    var g = itens[atual];
+    lbImg.src = g.src; lbImg.alt = g.alt || '';
+    lbCap.textContent = legendaDe(g);
+  }
+  function abrir(i){ atual = i; mostrar(); lb.showModal(); }
+  function mover(d){ atual = (atual + d + itens.length) % itens.length; mostrar(); }
 
-    <script>
+  GALERIA.forEach(function(g){
+    var fig = document.createElement('figure');
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'tile';
+    if (g.src) {
+      var idx = itens.indexOf(g);
+      var img = document.createElement('img');
+      img.src = g.src; img.alt = g.alt || ''; img.loading = 'lazy';
+      btn.appendChild(img);
+      btn.setAttribute('aria-label', 'Ampliar imagem: ' + (g.alt || legendaDe(g)));
+      btn.addEventListener('click', function(){ abrir(idx); });
+    } else {
+      var ph = document.createElement('div');
+      ph.className = 'ph'; ph.textContent = 'Sua imagem aqui';
+      btn.appendChild(ph); btn.disabled = true;
+    }
+    var cap = document.createElement('figcaption');
+    var st = document.createElement('strong'); st.textContent = g.projeto || '';
+    cap.appendChild(st); cap.appendChild(document.createTextNode(g.legenda || ''));
+    fig.appendChild(btn); fig.appendChild(cap); grade.appendChild(fig);
+  });
 
-        const projetosData = [{
-            id: 1,
-            imagem: "img/addon1.jpg",
-            // Versão Português
-            titulo_pt: "Addon: Novas Armas e Ferramentas",
-            desc_pt: "Adiciona 10 novas armas (espadas, machados e arcos) e ferramentas exclusivas com encantamentos únicos para o Bedrock.",
-            cat_pt: "Addon de Itens",
-            // Versão Inglês
-            titulo_en: "Addon: New Weapons & Tools",
-            desc_en: "Adds 10 new weapons (swords, axes, bows) and exclusive tools with unique enchantments for Bedrock.",
-            cat_en: "Items Addon"
-        }, {
-            id: 2,
-            imagem: "img/addon2.jpg",
-            titulo_pt: "Addon: Criaturas Místicas",
-            desc_pt: "Introduz dragões, grifos e outras 8 criaturas lendárias totalmente domesticáveis ao seu mundo Minecraft.",
-            cat_pt: "Addon de Criaturas",
-            titulo_en: "Addon: Mythic Creatures",
-            desc_en: "Introduces dragons, griffins, and 8 other fully tameable legendary creatures to your Minecraft world.",
-            cat_en: "Creatures Addon"
-        }];
+  var multiplas = itens.length > 1;
+  document.getElementById('lb-prev').hidden = !multiplas;
+  document.getElementById('lb-next').hidden = !multiplas;
+  document.getElementById('lb-prev').addEventListener('click', function(){ mover(-1); });
+  document.getElementById('lb-next').addEventListener('click', function(){ mover(1); });
+  document.getElementById('lb-close').addEventListener('click', function(){ lb.close(); });
+  lb.addEventListener('click', function(e){ if (e.target === lb) lb.close(); });
+  lb.addEventListener('keydown', function(e){
+    if (!multiplas) return;
+    if (e.key === 'ArrowLeft') mover(-1);
+    if (e.key === 'ArrowRight') mover(1);
+  });
 
-
-        const translations = {
-            pt: {
-                nav_home: "🏠 Inicio",
-                nav_projetos: "📁 Projetos",
-                search_placeholder: "🔍 Pesquisar addons por nome ou descrição...",
-                projects_title: "✨ Meus Addons",
-                projects_subtitle: "Addons exclusivos para Minecraft Bedrock",
-                no_results: "Nenhum addon encontrado.",
-                footer_email: "seuemail@email.com",
-                footer_phone: "(11) 99999-9999",
-                footer_social: "@seudiscord",
-                footer_discord: "💬 Entre no meu Discord",
-                badge: "⭐ Parceiro"
-            },
-            en: {
-                nav_home: "🏠 Home",
-                nav_projetos: "📁 Projects",
-                search_placeholder: "🔍 Search addons by name or description...",
-                projects_title: "✨ My Addons",
-                projects_subtitle: "Exclusive addons for Minecraft Bedrock",
-                no_results: "No addons found.",
-                footer_email: "myemail@email.com",
-                footer_phone: "(11) 99999-9999",
-                footer_social: "@myDiscord",
-                footer_discord: "💬 Join my Discord",
-                badge: "⭐ Partner"
-            }
-        };
-
-        let currentLang = 'pt'; 
-
-        
-
-        function getLocalizedProject(proj, lang) {
-            return {
-                ...proj,
-                titulo: lang === 'pt' ? proj.titulo_pt : proj.titulo_en,
-                desc: lang === 'pt' ? proj.desc_pt : proj.desc_en,
-                categoria: lang === 'pt' ? proj.cat_pt : proj.cat_en
-            };
-        }
-
-        function renderBanners(lang, filterText = '') {
-            const container = document.getElementById('bannerContainer');
-            container.innerHTML = '';
-
-            let lista = projetosData.map(p => getLocalizedProject(p, lang));
-
-            if (filterText.trim() !== '') {
-                const termo = filterText.toLowerCase().trim();
-                lista = lista.filter(p =>
-                    p.titulo.toLowerCase().includes(termo) ||
-                    p.desc.toLowerCase().includes(termo) ||
-                    p.categoria.toLowerCase().includes(termo)
-                );
-            }
-
-            if (lista.length === 0) {
-                const noResultMsg = translations[lang].no_results;
-                container.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#666; font-size:18px; padding:40px;">${noResultMsg}</p>`;
-                return;
-            }
-
-            lista.forEach(proj => {
-                const div = document.createElement('div');
-                div.className = 'banner-item';
-                div.innerHTML = `
-                    <img src="${proj.imagem}" alt="${proj.titulo}" loading="lazy">
-                    <div class="info">
-                        <h3>${proj.titulo}</h3>
-                        <p>${proj.desc}</p>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function renderProjetos(lang) {
-            const container = document.getElementById('projetosContainer');
-            container.innerHTML = '';
-
-            const lista = projetosData.map(p => getLocalizedProject(p, lang));
-            const badgeText = translations[lang].badge;
-
-            lista.forEach(proj => {
-                const div = document.createElement('div');
-                div.className = 'card-projeto';
-                div.innerHTML = `
-                    <span class="badge">${badgeText}</span>
-                    <img src="${proj.imagem}" alt="${proj.titulo}" loading="lazy">
-                    <div class="conteudo">
-                        <h3>${proj.titulo}</h3>
-                        <div class="subtitulo">${proj.categoria}</div>
-                        <p>${proj.desc}</p>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-
-        function applyLanguage(lang) {
-            currentLang = lang;
-
-
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
-
-            // Atualiza placeholders com data-i18n-placeholder
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                if (translations[lang] && translations[lang][key]) {
-                    el.placeholder = translations[lang][key];
-                }
-            });
-
-
-            const searchInput = document.getElementById('searchInput');
-            renderBanners(lang, searchInput.value);
-            renderProjetos(lang);
-
-    
-            document.getElementById('langPt').classList.toggle('ativo-idioma', lang === 'pt');
-            document.getElementById('langEn').classList.toggle('ativo-idioma', lang === 'en');
-
-
-            document.documentElement.lang = lang;
-        }
-
-        const links = document.querySelectorAll('.sidebar nav a');
-        const pages = {
-            home: document.getElementById('home'),
-            projetos: document.getElementById('projetos')
-        };
-
-        links.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                links.forEach(l => l.classList.remove('ativo'));
-                this.classList.add('ativo');
-
-                Object.values(pages).forEach(p => p.classList.remove('ativa'));
-
-                const pageId = this.getAttribute('data-page');
-                pages[pageId].classList.add('ativa');
-            });
-        });
-
-        document.getElementById('searchInput').addEventListener('input', function() {
-            renderBanners(currentLang, this.value);
-        });
-
-        document.getElementById('langPt').addEventListener('click', () => applyLanguage('pt'));
-        document.getElementById('langEn').addEventListener('click', () => applyLanguage('en'));
-
-        applyLanguage('pt');
-    </script>
-
+  /* Mosaico decorativo do topo */
+  var heights = [3,4,4,6,5,7,5,4,6,3], rows = 8, box = document.getElementById('mosaic');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cells = [];
+  for (var r = 0; r < rows; r++) {
+    for (var c = 0; c < heights.length; c++) {
+      var el = document.createElement('i');
+      var depth = (rows - r) - heights[c];
+      var cls = null;
+      if (depth === 0) cls = 'top';
+      else if (depth === -1) cls = 'mid';
+      else if (depth < -1) cls = 'deep';
+      box.appendChild(el);
+      if (cls) cells.push({el: el, cls: cls, delay: c * 70 + (r * 25)});
+    }
+  }
+  cells.forEach(function(x){
+    if (reduce) { x.el.className = x.cls; return; }
+    setTimeout(function(){ x.el.className = x.cls; }, 150 + x.delay);
+  });
+})();
+</script>
 </body>
 </html>
