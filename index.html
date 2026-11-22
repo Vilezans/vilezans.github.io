@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vilezans · Portfólio de desenvolvimento técnico</title>
+<meta name="description" content="Portfólio de Vilezans: projetos de desenvolvimento técnico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#000000; --surface:#050A06; --ink:#FFFFFF; --muted:#BDC9C0;
+  --line:#FFFFFF; --line-soft:#1F6B12;
+  --accent:#39FF14; --accent-ink:#000000; --accent-text:#39FF14; /* verde vil brilhante (botões e links) */
+  --glow:rgba(57,255,20,.5); /* brilho verde */
+  --o1:#8F6B00; --o2:#D9A800; --o3:#FFE24A; /* tons de dourado do mosaico: escuro, médio, claro */
+  --v1:#14A800; --v2:#39FF14; --v3:#C6FF3D; /* tons de verde da runa: escuro, médio, claro */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:400 17px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",system-ui,sans-serif; margin:0; letter-spacing:-0.015em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent-text); outline-offset:3px; border-radius:4px}
+.wrap{max-width:1040px; margin:0 auto; padding:0 24px}
+
+/* Cabeçalho */
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex; justify-content:space-between; align-items:center; padding-top:22px; padding-bottom:22px}
+.brand{font:700 1.15rem "Bricolage Grotesque",sans-serif; text-decoration:none}
+nav{display:flex; gap:22px}
+nav a{text-decoration:none; color:var(--muted); font-weight:500}
+nav a:hover{color:var(--ink)}
+
+/* Hero */
+.hero{display:grid; grid-template-columns:1.25fr .75fr; gap:48px; align-items:center; padding:56px 0 88px}
+.hero h1{font-size:clamp(2.5rem,6.2vw,4.7rem); line-height:1.02; font-weight:700}
+.hero p{max-width:34em; color:var(--muted); font-size:1.15rem; margin:24px 0 32px}
+.actions{display:flex; gap:12px; flex-wrap:wrap}
+.btn{display:inline-block; padding:12px 22px; border-radius:10px; font-weight:500; text-decoration:none; border:1.5px solid var(--ink); background:transparent; color:var(--ink); font-family:inherit; font-size:1rem; cursor:pointer}
+.btn.solid{background:var(--accent); border-color:var(--accent); color:var(--accent-ink); box-shadow:0 0 18px var(--glow)}
+.btn.solid:hover{box-shadow:0 0 28px var(--glow)}
+.btn:hover{transform:translateY(-1px)}
+.btn:not(.solid):hover{background:var(--ink); color:var(--paper)}
+
+#mosaic{display:grid; gap:1px; width:100%; max-width:380px; justify-self:center}
+#mosaic i{border-radius:1px; opacity:0; transform:scale(.3); transition:opacity .4s ease, transform .4s ease}
+#mosaic i.on{opacity:1; transform:none}
+#mosaic i.t1{background:var(--o1)}
+#mosaic i.t2{background:var(--o2)}
+#mosaic i.t3{background:var(--o3)}
+#mosaic i.t4{background:var(--v1)}
+#mosaic i.t5{background:var(--v2)}
+#mosaic i.t6{background:var(--v3)}
+
+/* Seções */
+section{padding:72px 0; border-top:1px solid var(--line)}
+section > .wrap > h2{font-size:clamp(1.8rem,3.6vw,2.4rem); margin-bottom:12px}
+.intro{color:var(--muted); max-width:36em; margin:0 0 36px}
+
+.featured{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:36px; display:grid; grid-template-columns:1.4fr 1fr; gap:32px}
+.featured h3{font-size:1.7rem; margin-bottom:12px}
+.featured p{margin:0 0 20px; color:var(--muted); max-width:36em}
+.featured .side{border-left:1px solid var(--line); padding-left:32px; align-self:stretch; display:flex; flex-direction:column; justify-content:space-between; gap:16px}
+.featured .side p{margin:0}
+
+.tags{display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:0; list-style:none}
+.tags li{font-size:.85rem; padding:3px 12px; border:1px solid var(--line-soft); border-radius:999px; color:var(--muted)}
+
+.rows{margin-top:12px}
+.row{display:grid; grid-template-columns:1fr 1.6fr; gap:8px 32px; padding:26px 0; border-bottom:1px solid var(--line)}
+.row h3{font-size:1.25rem}
+.row p{margin:0 0 12px; color:var(--muted)}
+.row a.more{font-weight:500; color:var(--accent-text); text-decoration:none}
+.row a.more:hover{text-decoration:underline}
+.row a.more{text-shadow:0 0 10px var(--glow)}
+
+/* Galeria */
+#grade{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:20px}
+#grade figure{margin:0}
+.tile{display:block; width:100%; padding:0; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); aspect-ratio:4/3; cursor:zoom-in; color:inherit}
+.tile:disabled{cursor:default}
+.tile img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease}
+.tile:not(:disabled):hover img{transform:scale(1.04)}
+.ph{width:100%; height:100%; display:grid; place-items:center; color:var(--muted); font-size:.95rem; background:repeating-linear-gradient(135deg,transparent 0 14px,var(--line-soft) 14px 15px)}
+#grade figcaption{margin-top:10px; font-size:.95rem; color:var(--muted)}
+#grade figcaption strong{display:block; color:var(--ink); font-weight:500}
+
+dialog#lb{border:0; padding:0; background:transparent; max-width:min(94vw,1100px); max-height:94vh; overflow:visible; color:#fff}
+dialog#lb::backdrop{background:rgba(10,12,28,.86)}
+#lb img{display:block; max-width:100%; max-height:78vh; margin:0 auto; border-radius:10px}
+#lb .bar{display:flex; justify-content:space-between; align-items:center; gap:16px; margin-top:14px}
+#lb .bar p{margin:0; font-size:.98rem}
+#lb .ctrl{display:flex; gap:8px; flex:none}
+#lb .ctrl button{font:inherit; color:#fff; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35); border-radius:8px; padding:8px 14px; cursor:pointer}
+#lb .ctrl button:hover{background:rgba(255,255,255,.26)}
+#lb :focus-visible{outline-color:#fff}
+
+.about{display:grid; grid-template-columns:1fr 1fr; gap:48px}
+.about p{margin:0 0 16px; max-width:34em}
+dl{margin:0}
+dt{font:600 1.05rem "Bricolage Grotesque",sans-serif; margin-top:18px}
+dt:first-child{margin-top:0}
+dd{margin:2px 0 0; color:var(--muted)}
+
+.contact h2{font-size:clamp(2.2rem,5vw,3.6rem)}
+.contact p{color:var(--muted); max-width:30em; margin:0 0 28px}
+.links{display:flex; gap:12px; flex-wrap:wrap}
+
+footer{padding:32px 0 48px; color:var(--muted); font-size:.9rem; border-top:1px solid var(--line)}
+
+@media (max-width:760px){
+  .hero,.featured,.about,.row{grid-template-columns:1fr}
+  .hero{padding-top:24px; gap:32px}
+  .featured{padding:24px}
+  .featured .side{border-left:0; border-top:1px solid var(--line); padding:20px 0 0}
+  nav{gap:14px}
+  #mosaic{max-width:260px; justify-self:start}
+  #lb .bar{flex-direction:column; align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  #mosaic i,.btn,.tile img{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#topo">Vilezans</a>
+    <nav aria-label="Principal">
+      <a href="#projetos">Projetos</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+  <div class="wrap hero">
+    <div>
+      <!-- EDITE: título e frase de apresentação -->
+      <h1>Portifólio de Desenvolvimento Técnico</h1>
+      <p>Sou o Vilezan, e aqui apresento meus projetos passados e em progresso</p>
+      <div class="actions">
+        <a class="btn solid" href="#projetos">Ver projetos</a>
+        <a class="btn" href="#contato">Falar comigo</a>
+      </div>
+    </div>
+    <div id="mosaic" role="img" aria-label="Ilustração decorativa: um sigilo dourado com uma runa verde ao centro, formado por quadrados"></div>
+  </div>
+
+  <section id="projetos">
+    <div class="wrap">
+      <h2>Projetos</h2>
+      <p class="intro">Trabalhos que desenvolvi para clientes, empresas ou instituições.</p>
+
+      <!-- EDITE: troque os textos de exemplo pelos seus projetos reais e coloque os links no lugar de href="#" -->
+      <article class="featured">
+        <div>
+          <h3>Nome do projeto em destaque</h3>
+          <p>Descreva em duas ou três frases o problema, o que você fez e o resultado.</p>
+          <ul class="tags"><li>Tecnologia 1</li><li>Tecnologia 2</li><li>Tecnologia 3</li></ul>
+        </div>
+        <div class="side">
+          <p>Seu papel no projeto, o período ou o cliente.</p>
+          <a class="btn solid" href="#">Ver projeto</a>
+        </div>
+      </article>
+
+      <!-- Para adicionar mais projetos, copie o bloco <article class="row"> abaixo -->
+      <div class="rows">
+        <article class="row">
+          <h3>Nome de outro projeto</h3>
+          <div>
+            <p>Uma frase sobre o que o projeto faz e qual foi sua contribuição.</p>
+            <a class="more" href="#">Ver projeto</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria">
+    <div class="wrap">
+      <h2>Galeria</h2>
+      <p class="intro">Imagens e capturas de tela dos projetos. Clique em uma imagem para ampliar.</p>
+      <div id="grade"></div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="wrap about">
+      <div>
+        <h2>Sobre</h2>
+        <!-- EDITE: conte sua história, formação e o que você busca -->
+        <p>Escreva aqui um parágrafo curto sobre você: sua trajetória, a área em que atua e o tipo de trabalho que procura.</p>
+        <p>Um segundo parágrafo pode falar do seu jeito de trabalhar ou do que você gosta de construir.</p>
+      </div>
+      <dl>
+        <!-- EDITE: suas habilidades principais -->
+        <dt>Habilidade ou área 1</dt>
+        <dd>O que você faz com ela.</dd>
+        <dt>Habilidade ou área 2</dt>
+        <dd>O que você faz com ela.</dd>
+        <dt>Habilidade ou área 3</dt>
+        <dd>O que você faz com ela.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="contato" class="contact">
+    <div class="wrap">
+      <h2>Contate-me.</h2>
+      <p>Tem um projeto ou uma oportunidade em mente? Me escreva.</p>
+      <div class="links">
+        <!-- EDITE: coloque seu e-mail real -->
+        <a class="btn solid" href="mailto:vilezanakyio@gmail.com">E-mail</a>
+        <a class="btn" href="https://github.com/Vilezans">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog id="lb" aria-label="Imagem ampliada">
+  <img id="lb-img" alt="">
+  <div class="bar">
+    <p id="lb-cap"></p>
+    <div class="ctrl">
+      <button type="button" id="lb-prev" aria-label="Imagem anterior">Anterior</button>
+      <button type="button" id="lb-next" aria-label="Próxima imagem">Próxima</button>
+      <button type="button" id="lb-close">Fechar</button>
+    </div>
+  </div>
+</dialog>
+
+<footer>
+  <div class="wrap">© <span id="ano">2026</span> Vilezan</div>
+</footer>
+
+<script>
+/* ====== GALERIA ======
+   1. Crie uma pasta chamada "imagens" no repositório e envie suas imagens para ela.
+   2. Para cada imagem, adicione uma linha abaixo, com o caminho em "src".
+   Itens com src vazio ('') aparecem como espaço reservado. */
+var GALERIA = [
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' },
+  { src: '', alt: 'Descrição da imagem', projeto: 'Nome do projeto', legenda: 'Legenda curta' }
+];
+/* Exemplo preenchido:
+  { src: 'imagens/painel.png', alt: 'Tela inicial do painel', projeto: 'Painel de vendas', legenda: 'Tela inicial' }
+*/
+
+(function(){
+  document.getElementById('ano').textContent = new Date().getFullYear();
+
+  /* Galeria */
+  var grade = document.getElementById('grade');
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lb-img'), lbCap = document.getElementById('lb-cap');
+  var itens = GALERIA.filter(function(g){ return g.src; });
+  var atual = 0;
+
+  function legendaDe(g){ return [g.projeto, g.legenda].filter(Boolean).join(': '); }
+  function mostrar(){
+    var g = itens[atual];
+    lbImg.src = g.src; lbImg.alt = g.alt || '';
+    lbCap.textContent = legendaDe(g);
+  }
+  function abrir(i){ atual = i; mostrar(); lb.showModal(); }
+  function mover(d){ atual = (atual + d + itens.length) % itens.length; mostrar(); }
+
+  GALERIA.forEach(function(g){
+    var fig = document.createElement('figure');
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'tile';
+    if (g.src) {
+      var idx = itens.indexOf(g);
+      var img = document.createElement('img');
+      img.src = g.src; img.alt = g.alt || ''; img.loading = 'lazy';
+      btn.appendChild(img);
+      btn.setAttribute('aria-label', 'Ampliar imagem: ' + (g.alt || legendaDe(g)));
+      btn.addEventListener('click', function(){ abrir(idx); });
+    } else {
+      var ph = document.createElement('div');
+      ph.className = 'ph'; ph.textContent = 'Sua imagem aqui';
+      btn.appendChild(ph); btn.disabled = true;
+    }
+    var cap = document.createElement('figcaption');
+    var st = document.createElement('strong'); st.textContent = g.projeto || '';
+    cap.appendChild(st); cap.appendChild(document.createTextNode(g.legenda || ''));
+    fig.appendChild(btn); fig.appendChild(cap); grade.appendChild(fig);
+  });
+
+  var multiplas = itens.length > 1;
+  document.getElementById('lb-prev').hidden = !multiplas;
+  document.getElementById('lb-next').hidden = !multiplas;
+  document.getElementById('lb-prev').addEventListener('click', function(){ mover(-1); });
+  document.getElementById('lb-next').addEventListener('click', function(){ mover(1); });
+  document.getElementById('lb-close').addEventListener('click', function(){ lb.close(); });
+  lb.addEventListener('click', function(e){ if (e.target === lb) lb.close(); });
+  lb.addEventListener('keydown', function(e){
+    if (!multiplas) return;
+    if (e.key === 'ArrowLeft') mover(-1);
+    if (e.key === 'ArrowRight') mover(1);
+  });
+
+  /* Mosaico do topo: desenho feito de quadrados.
+     Cada texto abaixo é uma linha do desenho.
+     '.' = vazio
+     '1' '2' '3' = dourado escuro, médio e claro
+     '4' '5' '6' = verde escuro, médio e claro (a runa do centro)
+     Você pode editar os números para mudar o desenho. */
+  var DESENHO = [
+    '........................................................',
+    '........................................................',
+    '............................1...........................',
+    '...........................11.1.........................',
+    '.......................1...22..11.......................',
+    '...................1.11..112211..11.1...................',
+    '...................11..1212122121..21...................',
+    '....................3.11........11.21...................',
+    '................2..112322112311223211..2................',
+    '.........1....1211....122221122221.....112....1.........',
+    '..........11.21..21........22.........2...2..2..........',
+    '...........23.....3321.....22.....12331....23...........',
+    '..........1132111.133332.2.12.2.233332..212321..........',
+    '........121.3312331..12322212.31331.11333223.121........',
+    '.........2233332111....232.22.323.....1113333221........',
+    '........2..1333331.1..1321.12.1232....1333331..2........',
+    '.......1.....333332....132..1.132....233333..1..1.......',
+    '.......2.1...12..332.....11.111.....133..21...1.2.......',
+    '.......1.1.111...133.......11.......232...1211.1.1......',
+    '......1.2....232..331......331.....133..233....2.1......',
+    '......1.2.....3232.2332.12212231.1332.1333.....2.1......',
+    '......112....1233332.2111......11.2.2333331....221......',
+    '.......13.....2333322.1....45......1233332.....22.......',
+    '........3......2332..2.....55.....2..1332......31.......',
+    '........22....2.333.323....555...2231233.21...13........',
+    '.....11..32...33233312...4554.....21333233...13...2.....',
+    '....131.123332333331.2..545.......2..33333323321..31....',
+    '...1333.22.23331233.13...556554...22.23313332.22.2332...',
+    '...1233.22.2331.232.13....655444..21.233..332.22.2331...',
+    '....131.12331..2333..2...54.5.44..2..2332...3321..31....',
+    '.....11..33.111.133..11.444..455..1..332.111.33...2.....',
+    '......1.13......3331.11..4444555.12..2331.....32........',
+    '........32..122333...221..444..4122...233222..13........',
+    '.......13..1333331...23221.11..2233....333332..32.......',
+    '......123..22...1.21.1..1233332.1.1..1.1...23..3221.....',
+    '......1.3.1.....232....132.12.231....1321....212.1......',
+    '......1.2.....1132...113333..3333211..13211....2.1......',
+    '.......11.....12........33..1.33........22.....2.1......',
+    '.......2.1..12..........33.22.23..........11..1.1.......',
+    '........1..1............33.23.231...........1.1.1.......',
+    '........1......1.......232.12.233.......1....1.1........',
+    '........121...2.......2332.22.1332.......2...1211.......',
+    '..........2...2.....133332.23.133331.....21..2..........',
+    '...........2..3.....12333.123.1233311....21.21..........',
+    '............323......333.2.22.2.3331.....3231...........',
+    '.............222...1332.13.12.31.2232...222.............',
+    '..............11..11....32.12.131...12..11..............',
+    '................22..112332..2.233311..22................',
+    '..................22...233..1.333...121.1...............',
+    '....................2221233.12321222....................',
+    '.......................2133113312.......................',
+    '......................112332233211......................',
+    '.........................133331.........................',
+    '...........................331..........................',
+    '...........................23...........................',
+    '...........................12...........................',
+    '........................................................',
+    '........................................................'
+  ];
+
+  /* Gerador de números pseudoaleatórios: com a mesma semente (7),
+     o resultado é sempre o mesmo. Troque o 7 para ter outra variação. */
+  function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0;
+    var t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  var rnd = mulberry32(7);
+
+  var box = document.getElementById('mosaic');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var COLS = DESENHO[0].length, LINHAS = DESENHO.length;
+  box.style.gridTemplateColumns = 'repeat(' + COLS + ',1fr)';
+  box.style.gridTemplateRows = 'repeat(' + LINHAS + ',1fr)';
+  box.style.aspectRatio = COLS + ' / ' + LINHAS;
+
+  function cheio(x, y){ var l = DESENHO[y]; return !!l && /[1-6]/.test(l.charAt(x)); }
+  var quadrados = [];
+  for (var y = 0; y < LINHAS; y++) {
+    for (var x = 0; x < COLS; x++) {
+      var ch = DESENHO[y].charAt(x), tom = 0;
+      if (/[1-6]/.test(ch)) {
+        tom = +ch;
+        if (tom <= 3 && rnd() < 0.06) continue;             /* alguns buracos (só no dourado) */
+        if (rnd() < 0.2) {                                  /* tom diferente, dentro da mesma cor */
+          var min = tom <= 3 ? 1 : 4, max = tom <= 3 ? 3 : 6;
+          tom = Math.max(min, Math.min(max, tom + (rnd() < 0.5 ? -1 : 1)));
+        }
+      } else if ((cheio(x+1,y) || cheio(x-1,y) || cheio(x,y+1) || cheio(x,y-1)) && rnd() < 0.07) {
+        tom = 1;                                            /* quadrados soltos na borda */
+      }
+      if (tom) quadrados.push({ x: x, y: y, tom: tom });
+    }
+  }
+
+  /* embaralha a ordem em que os quadrados aparecem */
+  for (var k = quadrados.length - 1; k > 0; k--) {
+    var r = Math.floor(rnd() * (k + 1)), t = quadrados[k]; quadrados[k] = quadrados[r]; quadrados[r] = t;
+  }
+
+  var DURACAO = 1600; /* tempo total da animação, em milissegundos */
+  var els = quadrados.map(function(q, i){
+    var el = document.createElement('i');
+    el.className = 't' + q.tom;
+    el.style.gridColumn = q.x + 1;
+    el.style.gridRow = q.y + 1;
+    if (!reduce) el.style.transitionDelay = Math.round(i * DURACAO / quadrados.length) + 'ms';
+    box.appendChild(el);
+    return el;
+  });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    els.forEach(function(el){ el.classList.add('on'); });
+  }); });
+})();
+</script>
+</body>
+</html>
